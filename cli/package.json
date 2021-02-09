@@ -10,7 +10,9 @@
   "author": "Gabriel Rodrigues",
   "license": "MIT",
   "dependencies": {
-    "marech-core": "link:../core"
+    "fs-jetpack": "^4.1.0",
+    "marech-core": "link:../core",
+    "yup": "^0.32.8"
   },
   "devDependencies": {
     "@types/node": "^14.14.25",
