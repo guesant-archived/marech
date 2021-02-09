@@ -1,21 +1,22 @@
 import escapeStringRegexp from "escape-string-regexp";
 import { join, normalize } from "path";
 import { IConfigFile } from "../types/IConfigFile";
-import { IMakeFileConfig } from "../types/IMakeFileConfig";
 import { IMakeFileConfigObjectOptions } from "../types/IMakeFileConfigObjectOptions";
 
+const extractInputPathMatch = (input: IMakeFileConfigObjectOptions["input"]) =>
+  typeof input === "string"
+    ? ([input, undefined] as const)
+    : ([input.path, input.match] as const);
 export class MakeFileConfig {
-  static makeFileConfig = function ({
-    input,
-    output,
-  }: IMakeFileConfigObjectOptions): IConfigFile | null {
-    const [path, match] = (() => {
-      return typeof input === "string"
-        ? ([input, undefined] as const)
-        : ([input.path, input.match] as const);
-    })();
-    return output ? MakeFileConfig.buildFileConfig(output, path, match) : null;
-  } as IMakeFileConfig;
+  static makeFileConfig = (
+    currentPath: string,
+    { input, output }: IMakeFileConfigObjectOptions,
+  ): IConfigFile | null => {
+    const [path, match] = extractInputPathMatch(input);
+    return output
+      ? MakeFileConfig.buildFileConfig(output, join(currentPath, path), match)
+      : null;
+  };
 
   static buildFileConfig = (
     outputPath: string,

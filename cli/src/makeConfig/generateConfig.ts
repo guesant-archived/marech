@@ -5,12 +5,13 @@ import { generateRules } from "./generateRules";
 import { MakeFileConfig } from "./makeFileConfig";
 
 export const generateConfig = (
+  currentPath: string,
   { output, input, rules = {} }: IGenerateConfigOptions,
   customRulesAfter: IConfigRule[] = [],
   customRulesBefore: IConfigRule[] = [],
 ): IConfig => {
   return {
-    files: MakeFileConfig.makeFileConfig({ input, output }),
+    files: MakeFileConfig.makeFileConfig(currentPath, { input, output })!,
     rules: [...customRulesBefore, ...generateRules(rules), ...customRulesAfter],
   };
 };
