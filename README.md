@@ -2,6 +2,23 @@
 
 Ultimate, simple, powerful and extensible precompiler.
 
+## Examples
+
+### CLI
+
+#### Create the config file
+
+```js
+// marech.config.js
+
+const { generateConfig } = require("marech-cli");
+
+module.exports = generateConfig(__dirname, {
+  output: "./build",
+  input: { path: "./src/website", match: "**/*.html" },
+});
+```
+
 ## Features
 
 ### Core
