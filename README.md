@@ -8,6 +8,8 @@ Ultimate, simple, powerful and extensible precompiler.
 
 - AbstractFileSystem.
 
+- AbstractTransformer.
+
 ## License
 
 - MIT - see [LICENSE.mit.txt](LICENSE.mit.txt) or <https://opensource.org/licenses/MIT>
