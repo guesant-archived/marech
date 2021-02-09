@@ -1,0 +1,17 @@
+{
+  "name": "@guesant/marech-transformer-html-modules",
+  "version": "0.0.0",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepare": "npm run build"
+  },
+  "author": "Gabriel Rodrigues",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^4.1.3"
+  }
+}
