@@ -5,15 +5,16 @@ import { IMakeFileConfig } from "../types/IMakeFileConfig";
 import { IMakeFileConfigObjectOptions } from "../types/IMakeFileConfigObjectOptions";
 
 export class MakeFileConfig {
-  static makeFileConfig = function (): IConfigFile | null {
-    const [
-      outputPath,
-      inputPath,
-      inputMatch = undefined,
-    ] = MakeFileConfig.extractPathsFromArgs(Array.from(arguments));
-    return outputPath
-      ? MakeFileConfig.buildFileConfig(outputPath, inputPath!, inputMatch)
-      : null;
+  static makeFileConfig = function ({
+    input,
+    output,
+  }: IMakeFileConfigObjectOptions): IConfigFile | null {
+    const [path, match] = (() => {
+      return typeof input === "string"
+        ? ([input, undefined] as const)
+        : ([input.path, input.match] as const);
+    })();
+    return output ? MakeFileConfig.buildFileConfig(output, path, match) : null;
   } as IMakeFileConfig;
 
   static buildFileConfig = (
@@ -34,23 +35,5 @@ export class MakeFileConfig {
           : ({ filePath }) => filePath,
       },
     };
-  };
-
-  static extractPathsFromArgs = (
-    args: any[],
-  ): [null] | [string, string, string] | [string, string] => {
-    if (args.length === 1) {
-      const options = args[0] as IMakeFileConfigObjectOptions;
-      const { match, inputPath, outputPath } = options;
-      return [outputPath, inputPath, match];
-    } else if (args.length === 2) {
-      if (Array.isArray(args[1])) {
-        const [inputPath, inputMatch] = args[1] as [string, string];
-        return [args[0], inputPath, inputMatch];
-      } else if (typeof args[1] === "string") {
-        return [args[0], args[1]];
-      }
-    }
-    return [null];
   };
 }

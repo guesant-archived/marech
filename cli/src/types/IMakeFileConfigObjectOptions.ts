@@ -1,5 +1,9 @@
 export type IMakeFileConfigObjectOptions = {
-  match: string;
-  inputPath: string;
-  outputPath: string;
+  input:
+    | {
+        path: string;
+        match?: string;
+      }
+    | string;
+  output: string;
 };

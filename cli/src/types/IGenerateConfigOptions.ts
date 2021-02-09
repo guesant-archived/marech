@@ -1,6 +1,6 @@
+import { IMakeFileConfigObjectOptions } from "./IMakeFileConfigObjectOptions";
 import { IRulesPresetOptions } from "./IRulesPresetOptions";
 
-export type IGenerateConfigOptions = {
-  files: [string, [string, string]];
+export type IGenerateConfigOptions = IMakeFileConfigObjectOptions & {
   rules?: IRulesPresetOptions;
 };
