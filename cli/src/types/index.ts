@@ -5,3 +5,4 @@ export * from "./IConfigRule";
 export * from "./IMakeFileConfig";
 export * from "./IMakeFileConfigObjectOptions";
 export * from "./IMakeFileSystemMappedPaths";
+export * from "./IRulesPresetOptions";
