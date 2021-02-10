@@ -19,6 +19,14 @@ module.exports = generateConfig(__dirname, {
 });
 ```
 
+#### Build the project
+
+```
+npx marech build [-p marech.config.js]
+```
+
+Have fun!
+
 ## Features
 
 ### Core
