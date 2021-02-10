@@ -1,4 +1,4 @@
-import { AbstractTransformer } from "marech-core/build/AbstractTransformer";
+import { AbstractTransformer } from "marech-core";
 import { IModuleSlot } from "./types/IModuleSlot";
 import { IModuleTemplate } from "./types/IModuleTemplate";
 import { getTemplateValue } from "./utils/getTemplateValue";
