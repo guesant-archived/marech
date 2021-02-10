@@ -6,9 +6,15 @@ Ultimate, simple, powerful and extensible precompiler.
 
 ### CLI
 
-#### Create the config file
+#### Install CLI
 
-```js
+```sh
+npm install marech-cli
+```
+
+#### Setup the `marech.config.js`
+
+```ts
 // marech.config.js
 
 const { generateConfig } = require("marech-cli");
@@ -40,6 +46,12 @@ Have fun!
 - AbstractFileSystem.
 
 - AbstractTransformer.
+
+### Command-Line Interface
+
+- Follows [marech.config.js](#cli).
+
+- `marech build` and `marech build --watch`.
 
 ## License
 
