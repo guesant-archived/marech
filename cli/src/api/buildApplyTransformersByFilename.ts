@@ -3,6 +3,7 @@ import { ConfigParserUtils } from "../ConfigParserUtils";
 import { Logger } from "../Logger";
 import { IConfigFile } from "../types";
 import { IConfigParsed } from "../types/IConfigParsed";
+import { IDependencyGraphList } from "../types/IDependencyGraphList";
 import { buildApplyTransformers } from "./buildApplyTransformers";
 
 export const buildApplyTransformersByFilename = async (
@@ -10,13 +11,21 @@ export const buildApplyTransformersByFilename = async (
   fileConfig: IConfigFile,
   config: IConfigParsed,
 ) => {
-  const originalFileContent = jetpack.read(filePath, "buffer");
-  if (!originalFileContent) return;
+  const fileDependencyGraph: IDependencyGraphList = [];
   Logger.debug("read", filePath);
-  const outputFilename = ConfigParserUtils.getOutputPath(fileConfig)(filePath);
-  jetpack.write(
-    outputFilename,
-    await buildApplyTransformers(originalFileContent, filePath, config),
-  );
-  Logger.debug("write", outputFilename);
+  if (jetpack.exists(filePath)) {
+    const originalFileContent = jetpack.read(filePath, "buffer")!;
+    const outputFilename = ConfigParserUtils.getOutputPath(fileConfig)(
+      filePath,
+    );
+    const newFileContent = await buildApplyTransformers(
+      originalFileContent,
+      filePath,
+      config,
+      fileDependencyGraph,
+    );
+    jetpack.write(outputFilename, newFileContent);
+    Logger.debug("write", outputFilename);
+  }
+  return fileDependencyGraph;
 };
