@@ -9,18 +9,18 @@ export const buildApplyTransformers = async (
   { rules: configRules }: { rules: IConfigParsed["rules"] },
   dependencyGraph?: IDependencyGraphList,
 ) => {
-  let currentFileContent = originalFileContent;
+  let newFileContent = originalFileContent;
   const rules = ConfigParserUtils.getMatchedRules(filePath, configRules);
   for (const { getTransformer } of rules) {
     const transformer = getTransformer(
-      { filePath, fileContent: currentFileContent, dependencyGraph },
+      { filePath, fileContent: newFileContent, dependencyGraph },
       configRules,
     );
     if (typeof transformer.transform !== "function") {
       Logger.error("invalid transformer: ", transformer);
     } else {
-      currentFileContent = await Promise.resolve(transformer.transform());
+      newFileContent = await Promise.resolve(transformer.transform());
     }
   }
-  return currentFileContent;
+  return newFileContent;
 };
