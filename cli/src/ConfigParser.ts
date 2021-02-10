@@ -8,18 +8,23 @@ import { IConfigParsed } from "./types/IConfigParsed";
 const ERROR_INVALID_CONFIG = Symbol("invalid config");
 const ERROR_CONFIG_NOT_FOUND = Symbol("config not found");
 
+function requireUncached(module: string) {
+  delete require.cache[require.resolve(module)];
+  return require(module);
+}
+
 export class ConfigParser {
   static DEFAULT_CONFIG_FILENAME = "marech.config.js";
 
   static loadConfig = (
     requestedPath: string,
-    defaultConfigFilename = ConfigParser.DEFAULT_CONFIG_FILENAME,
+    defaultConfigFilename = ConfigParser.DEFAULT_CONFIG_FILENAME
   ) => {
     try {
       if (!jetpack.exists(requestedPath)) throw ERROR_CONFIG_NOT_FOUND;
       const configPath = ConfigParser.getConfigPath(
         requestedPath,
-        defaultConfigFilename,
+        defaultConfigFilename
       );
       if (configPath === null) throw ERROR_CONFIG_NOT_FOUND;
       const config = ConfigParser.requireConfig(configPath);
@@ -38,8 +43,8 @@ export class ConfigParser {
     return null;
   };
 
-  static requireConfig = (configPath: string) => {
-    const config = require(configPath);
+  static requireConfig = (configPath: string, useRequireCache = false) => {
+    const config = (useRequireCache ? require : requireUncached)(configPath);
     try {
       return ConfigParser.parseConfig(config);
     } catch (_) {
@@ -52,7 +57,7 @@ export class ConfigParser {
 
   static getConfigPath = (
     requestedPath: string,
-    defaultConfigFilename: string,
+    defaultConfigFilename: string
   ) => {
     const targetPath =
       jetpack.exists(requestedPath) === "dir"
@@ -72,7 +77,7 @@ export class ConfigParser {
           yup.object({
             input: yup.string(),
             output: yup.object({ path: yup.mixed(), filename: yup.mixed() }),
-          }),
+          })
         )
         .default(() => []),
       rules: yup
@@ -82,7 +87,7 @@ export class ConfigParser {
           yup.object({
             match: yup.string(),
             transformer: yup.mixed(),
-          }),
+          })
         )
         .default(() => []),
     })
