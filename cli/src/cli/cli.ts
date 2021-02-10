@@ -11,10 +11,11 @@ async function main(args: string[]) {
   program.option(
     "-p, --config <path>",
     "Compile the project given the path to its configuration file, or to a folder with a 'marech.config.js'.",
-    ConfigParser.DEFAULT_CONFIG_FILENAME,
+    ConfigParser.DEFAULT_CONFIG_FILENAME
   );
 
   program.option("--watch", "Watches for file changes.", false);
+  program.option("--watchConfig", "Watches for the config file.", false);
 
   program
     .command("build")
@@ -23,6 +24,7 @@ async function main(args: string[]) {
       cliBuild({
         configPath: program.opts().config,
         watchMode: program.opts().watch,
+        watchConfigFile: program.opts().watchConfig,
       });
     });
 

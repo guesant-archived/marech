@@ -7,6 +7,7 @@ import { selectAll, selectOne } from "css-select";
 import serialize from "dom-serializer";
 import { Document, Node } from "domhandler";
 import * as domutils from "domutils";
+import { removeElement, replaceElement } from "domutils";
 import { parseDocument } from "htmlparser2";
 import * as HTMLUtils from "./HTMLUtils";
 import { getDOM } from "./HTMLUtils/getDOM";
@@ -45,7 +46,11 @@ export class TransformerHTMLModule extends AbstractTransformerModules {
   }
 
   extractSlots(body: string) {
-    return selectAll(this.TAG_SLOT, getDOM(body)).map((slotElement) => ({
+    return this.extractSlotsFromDOM(getDOM(body));
+  }
+
+  extractSlotsFromDOM(dom: Document) {
+    return selectAll(this.TAG_SLOT, dom).map((slotElement) => ({
       slotElement,
       name: HTMLUtils.getAttribute(slotElement, "name", this.SLOT_DEFAULT_NAME),
       defaultValue: serialize(domutils.getChildren(slotElement) || []),
@@ -53,12 +58,47 @@ export class TransformerHTMLModule extends AbstractTransformerModules {
   }
 
   extractTemplates(body: string) {
-    return selectAll(this.TAG_TEMPLATE, getDOM(body)).map((el) => ({
-      name: HTMLUtils.getAttribute(el, "name") || this.TEMPLATE_DEFAULT_NAME,
-      value: domutils.hasAttrib(el as any, "value")
-        ? HTMLUtils.getAttribute(el, "value")
-        : serialize(domutils.getChildren(el) || []),
-    }));
+    return this.extractTemplatesByDOM(getDOM(body));
+  }
+
+  extractTemplatesByDOM(dom: Document): { name: string; value: string }[] {
+    const getTemplateElements = (dom: Document) =>
+      selectAll(this.TAG_TEMPLATE, dom).map((el) => ({
+        templateElement: el,
+        name: HTMLUtils.getAttribute(el, "name") || this.TEMPLATE_DEFAULT_NAME,
+        value:
+          (domutils.hasAttrib(el as any, "value")
+            ? HTMLUtils.getAttribute(el, "value")
+            : serialize(domutils.getChildren(el) || [])) || "",
+      }));
+
+    const domCopy = (() => {
+      const domCopy = getDOM(serialize(dom));
+      while (true) {
+        const importElement = selectOne(this.TAG_IMPORT, domCopy);
+        if (!importElement) break;
+        replaceElement(
+          importElement,
+          getDOM(serialize(importElement.children)),
+        );
+      }
+      return domCopy;
+    })();
+
+    const domCopyExtractedTemplates = getTemplateElements(domCopy);
+    domCopyExtractedTemplates
+      .filter((i) => i.name !== "default")
+      .forEach((i) => {
+        removeElement(i.templateElement);
+      });
+
+    return [
+      ...getTemplateElements(dom),
+      ...(domCopyExtractedTemplates.filter(({ name }) => name === "default")
+        .length === 0
+        ? [{ name: this.TEMPLATE_DEFAULT_NAME, value: serialize(domCopy) }]
+        : []),
+    ].filter(({ name, value }) => ({ name, value }));
   }
 
   async loadModule(importElement: Node) {
@@ -101,7 +141,7 @@ export class TransformerHTMLModule extends AbstractTransformerModules {
       this.getImportElements(dom).map(async (importElement) => {
         const importedElement = await this.loadModule(importElement);
         this.mixTemplatesWithSlots(
-          this.extractSlots(serialize(importedElement)),
+          this.extractSlotsFromDOM(importedElement),
           this.extractTemplates(serialize(importElement)),
         ).forEach(({ slotElement, value }) => {
           domutils.replaceElement(slotElement, parseDocument(value));
