@@ -1,6 +1,6 @@
 import chokidar from "chokidar";
+import { format } from "date-fns";
 import jetpack from "fs-jetpack";
-import debounce from "lodash.debounce";
 import { buildApplyTransformersByFilename } from "../api/buildApplyTransformersByFilename";
 import { buildByConfig } from "../api/buildByConfig";
 import { ConfigParser } from "../ConfigParser";
@@ -9,10 +9,9 @@ import { extractDependencyGraphListPaths } from "./extractDependencyGraphListPat
 
 export type IFileWatchEvent = "add" | "change" | "unlink";
 
-const logInfo = debounce((message: string) => {
-  process.stdout.write("\r".padEnd(80, " "));
-  process.stdout.write(message);
-}, 0);
+const logInfo = (message: string) => {
+  console.log(`[${format(Date.now(), "H:mm:ss")}]`, message);
+};
 
 export async function cliBuild({
   watchMode,
