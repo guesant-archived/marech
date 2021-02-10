@@ -14,11 +14,16 @@ async function main(args: string[]) {
     ConfigParser.DEFAULT_CONFIG_FILENAME,
   );
 
+  program.option("--watch", "Watches for file changes.", false);
+
   program
     .command("build")
     .description("build the project from config file")
     .action(() => {
-      cliBuild({ configPath: program.opts().config });
+      cliBuild({
+        configPath: program.opts().config,
+        watchMode: program.opts().watch,
+      });
     });
 
   program.parse(args);

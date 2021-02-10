@@ -25,6 +25,12 @@ module.exports = generateConfig(__dirname, {
 npx marech build [-p marech.config.js]
 ```
 
+#### watch mode
+
+```
+npx marech build --watch [-p marech.config.js]
+```
+
 Have fun!
 
 ## Features

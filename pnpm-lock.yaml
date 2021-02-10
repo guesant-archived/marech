@@ -4,16 +4,19 @@ importers:
   cli:
     dependencies:
       '@guesant/marech-transformer-html-modules': 'link:../packages/transformer-html-modules'
+      chokidar: 3.5.1
       commander: 7.0.0
       escape-string-regexp: 4.0.0
       fs-jetpack: 4.1.0
       globby: 11.0.2
       lodash.chunk: 4.2.0
+      lodash.debounce: 4.0.8
       marech-core: 'link:../core'
       micromatch: 4.0.2
       yup: 0.32.8
     devDependencies:
       '@types/lodash.chunk': 4.2.6
+      '@types/lodash.debounce': 4.0.6
       '@types/micromatch': 4.0.1
       '@types/node': 14.14.25
       ts-node: 9.1.1_typescript@4.1.3
@@ -21,13 +24,16 @@ importers:
     specifiers:
       '@guesant/marech-transformer-html-modules': 'link:../packages/transformer-html-modules'
       '@types/lodash.chunk': ^4.2.6
+      '@types/lodash.debounce': ^4.0.6
       '@types/micromatch': ^4.0.1
       '@types/node': ^14.14.25
+      chokidar: ^3.5.1
       commander: ^7.0.0
       escape-string-regexp: ^4.0.0
       fs-jetpack: ^4.1.0
       globby: ^11.0.2
       lodash.chunk: ^4.2.0
+      lodash.debounce: ^4.0.8
       marech-core: 'link:../core'
       micromatch: ^4.0.2
       ts-node: ^9.1.1
@@ -127,6 +133,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-SPlusB7jxXyGcTXYcUdWr7WmhArO/rmTq54VN88iKMxGUhyg79I4Q8n4riGn3kjaTjOJrVlHhxgX/d7woak5BQ==
+  /@types/lodash.debounce/4.0.6:
+    dependencies:
+      '@types/lodash': 4.14.168
+    dev: true
+    resolution:
+      integrity: sha512-4WTmnnhCfDvvuLMaF3KV4Qfki93KebocUF45msxhYyjMttZDQYzHkO639ohhk8+oco2cluAFL3t5+Jn4mleylQ==
   /@types/lodash/4.14.168:
     resolution:
       integrity: sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
@@ -140,6 +152,15 @@ packages:
     dev: true
     resolution:
       integrity: sha512-EPpXLOVqDvisVxtlbvzfyqSsFeQxltFbluZNRndIb8tr9KiBnYNLzrc1N3pyKUCww2RNrfHDViqDWWE1LCJQtQ==
+  /anymatch/3.1.1:
+    dependencies:
+      normalize-path: 3.0.0
+      picomatch: 2.2.2
+    dev: false
+    engines:
+      node: '>= 8'
+    resolution:
+      integrity: sha512-mM8522psRCqzV+6LhomX5wgp25YVibjh8Wj23I5RPkPppSVSjyKD2A2mBJmWGa+KN7f2D6LNh9jkBCeyLktzjg==
   /arg/4.1.3:
     dev: true
     resolution:
@@ -154,6 +175,12 @@ packages:
     dev: false
     resolution:
       integrity: sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
+  /binary-extensions/2.2.0:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
   /boolbase/1.0.0:
     dev: false
     resolution:
@@ -177,6 +204,22 @@ packages:
     dev: true
     resolution:
       integrity: sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
+  /chokidar/3.5.1:
+    dependencies:
+      anymatch: 3.1.1
+      braces: 3.0.2
+      glob-parent: 5.1.1
+      is-binary-path: 2.1.0
+      is-glob: 4.0.1
+      normalize-path: 3.0.0
+      readdirp: 3.5.0
+    dev: false
+    engines:
+      node: '>= 8.10.0'
+    optionalDependencies:
+      fsevents: 2.3.2
+    resolution:
+      integrity: sha512-9+s+Od+W0VJJzawDma/gvBNQqkTiqYTWLuZoyAsivsI4AaWTCzHG06/TMjsf1cYe9Cb97UCEhjz7HvnPk2p/tw==
   /commander/7.0.0:
     dev: false
     engines:
@@ -297,6 +340,15 @@ packages:
     dev: false
     resolution:
       integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
+  /fsevents/2.3.2:
+    dev: false
+    engines:
+      node: ^8.16.0 || ^10.6.0 || >=11.0.0
+    optional: true
+    os:
+      - darwin
+    resolution:
+      integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
   /glob-parent/5.1.1:
     dependencies:
       is-glob: 4.0.1
@@ -355,6 +407,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
+  /is-binary-path/2.1.0:
+    dependencies:
+      binary-extensions: 2.2.0
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==
   /is-extglob/2.1.1:
     dev: false
     engines:
@@ -383,6 +443,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-ZuXOH3btJ7QwPYxlEujRIW6BBrw=
+  /lodash.debounce/4.0.8:
+    dev: false
+    resolution:
+      integrity: sha1-gteb/zCmfEAF/9XiUVMArZyk168=
   /lodash/4.17.20:
     dev: false
     resolution:
@@ -416,6 +480,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-wynEP02LmIbLpcYw8uBKpcfF6dmg2vcpKqxeH5UcoKEYdExslsdUA4ugFauuaeYdTB76ez6gJW8XAZ6CgkXYxA==
+  /normalize-path/3.0.0:
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
   /nth-check/2.0.0:
     dependencies:
       boolbase: 1.0.0
@@ -450,6 +520,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-sFPkHQjVKheDNnPvotjQmm3KD3uk1fWKUN7CrpdbwmUx3CrG3QiM8QpTSimvig5vTXmTvjz7+TDvXOI9+4rkcg==
+  /readdirp/3.5.0:
+    dependencies:
+      picomatch: 2.2.2
+    dev: false
+    engines:
+      node: '>=8.10.0'
+    resolution:
+      integrity: sha512-cMhu7c/8rdhkHXWsY+osBhfSy0JikwpHK/5+imo+LpeasTF8ouErHrlYkwT0++njiyuDvc7OFY5T3ukvZ8qmFQ==
   /regenerator-runtime/0.13.7:
     dev: false
     resolution:
