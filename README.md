@@ -53,6 +53,16 @@ Have fun!
 
 - `marech build` and `marech build --watch`.
 
+## See also
+
+Greats projects used or that have inspired the marech project:
+
+- [Sergey](https://github.com/trys/sergey)
+
+- [Webpack](https://webpack.js.org)
+
+- [Prettier](https://prettier.io)
+
 ## License
 
 - MIT - see [LICENSE.mit.txt](LICENSE.mit.txt) or <https://opensource.org/licenses/MIT>
