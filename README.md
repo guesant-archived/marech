@@ -37,6 +37,8 @@ npx marech build [-p marech.config.js]
 npx marech build --watch [-p marech.config.js]
 ```
 
+The `--watch` flag will be used in the files described in the `marech.config.js` file. If you want to watch the **config file**, just use the flag `--watchConfig`.
+
 Have fun!
 
 ## Features
