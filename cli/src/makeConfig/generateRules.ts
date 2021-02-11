@@ -1,5 +1,6 @@
 import { TransformerHTMLMinifier } from "@guesant/marech-transformer-html-minifier";
 import { TransformerHTMLModule } from "@guesant/marech-transformer-html-modules";
+import { TransformerPrettier } from "@guesant/marech-transformer-prettier";
 import { dirname } from "path";
 import { IConfigRule } from "../types/IConfigRule";
 import { IRulesPresetOptions } from "../types/IRulesPresetOptions";
@@ -30,6 +31,29 @@ export const generateRules = (
             ),
           },
           {},
+        ),
+    });
+  }
+
+  if (prettier?.enabled ?? false) {
+    const match = prettier?.match || "**/*.html";
+    rules.push({
+      match,
+      getTransformer: (
+        { fileContent, filePath, dependencyGraph },
+        configRules,
+      ) =>
+        new TransformerPrettier(
+          fileContent,
+          {
+            fs: makeFileSystem(
+              dirname(filePath),
+              mappedPaths,
+              configRules,
+              dependencyGraph,
+            ),
+          },
+          { parser: "html", ...(prettier?.options || {}) },
         ),
     });
   }

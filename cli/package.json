@@ -12,6 +12,7 @@
   "dependencies": {
     "@guesant/marech-transformer-html-minifier": "link:../packages/transformer-html-minifier",
     "@guesant/marech-transformer-html-modules": "link:../packages/transformer-html-modules",
+    "@guesant/marech-transformer-prettier": "link:../packages/transformer-prettier",
     "chokidar": "^3.5.1",
     "commander": "^7.0.0",
     "date-fns": "^2.17.0",
