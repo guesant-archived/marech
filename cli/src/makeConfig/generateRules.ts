@@ -1,3 +1,4 @@
+import { TransformerHTMLMinifier } from "@guesant/marech-transformer-html-minifier";
 import { TransformerHTMLModule } from "@guesant/marech-transformer-html-modules";
 import { dirname } from "path";
 import { IConfigRule } from "../types/IConfigRule";
@@ -29,6 +30,29 @@ export const generateRules = (
             ),
           },
           {},
+        ),
+    });
+  }
+
+  if (htmlMinify?.enabled ?? false) {
+    const match = htmlMinify?.match || "**/*.html";
+    rules.push({
+      match,
+      getTransformer: (
+        { fileContent, filePath, dependencyGraph },
+        configRules,
+      ) =>
+        new TransformerHTMLMinifier(
+          fileContent,
+          {
+            fs: makeFileSystem(
+              dirname(filePath),
+              mappedPaths,
+              configRules,
+              dependencyGraph,
+            ),
+          },
+          htmlMinify?.options || {},
         ),
     });
   }
