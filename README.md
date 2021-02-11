@@ -2,7 +2,7 @@
 
 Ultimate, simple, powerful and extensible precompiler.
 
-## Examples
+## Install & Usage
 
 ### CLI
 
@@ -12,7 +12,7 @@ Ultimate, simple, powerful and extensible precompiler.
 npm install marech-cli
 ```
 
-#### Setup the `marech.config.js`
+#### Setup the `marech.config.js` file
 
 ```ts
 // marech.config.js
@@ -22,18 +22,23 @@ const { generateConfig } = require("marech-cli");
 module.exports = generateConfig(__dirname, {
   output: "./build",
   input: { path: "./src/website", match: "**/*.html" },
+  // rules: {
+  //   // prettier: { enabled: false, options: {} },
+  //   // htmlMinifier: { enabled: false, options: {} },
+  //   // mappedPaths: { "@/(**)": join(__dirname, "./src/$1") },
+  // },
 });
 ```
 
 #### Build the project
 
-```
+```sh
 npx marech build [-p marech.config.js]
 ```
 
 #### watch mode
 
-```
+```sh
 npx marech build --watch [-p marech.config.js]
 ```
 
