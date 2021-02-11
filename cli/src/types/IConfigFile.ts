@@ -1,5 +1,5 @@
 export type IConfigFile = {
-  input: string;
+  input: { path: string; match?: string };
   output: {
     path: string;
     filename:

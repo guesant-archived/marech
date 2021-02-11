@@ -18,13 +18,13 @@ export class ConfigParser {
 
   static loadConfig = (
     requestedPath: string,
-    defaultConfigFilename = ConfigParser.DEFAULT_CONFIG_FILENAME
+    defaultConfigFilename = ConfigParser.DEFAULT_CONFIG_FILENAME,
   ) => {
     try {
       if (!jetpack.exists(requestedPath)) throw ERROR_CONFIG_NOT_FOUND;
       const configPath = ConfigParser.getConfigPath(
         requestedPath,
-        defaultConfigFilename
+        defaultConfigFilename,
       );
       if (configPath === null) throw ERROR_CONFIG_NOT_FOUND;
       const config = ConfigParser.requireConfig(configPath);
@@ -33,6 +33,8 @@ export class ConfigParser {
     } catch (error) {
       switch (error) {
         case ERROR_CONFIG_NOT_FOUND:
+          Logger.error(`config file not found: ${requestedPath}`);
+          break;
         case ERROR_INVALID_CONFIG:
           Logger.error(`invalid config file: ${requestedPath}`);
           break;
@@ -57,7 +59,7 @@ export class ConfigParser {
 
   static getConfigPath = (
     requestedPath: string,
-    defaultConfigFilename: string
+    defaultConfigFilename: string,
   ) => {
     const targetPath =
       jetpack.exists(requestedPath) === "dir"
@@ -75,9 +77,12 @@ export class ConfigParser {
         .ensure()
         .of(
           yup.object({
-            input: yup.string(),
+            input: yup.object({
+              path: yup.string().required().min(1),
+              match: yup.string().optional(),
+            }),
             output: yup.object({ path: yup.mixed(), filename: yup.mixed() }),
-          })
+          }),
         )
         .default(() => []),
       rules: yup
@@ -87,7 +92,7 @@ export class ConfigParser {
           yup.object({
             match: yup.string(),
             transformer: yup.mixed(),
-          })
+          }),
         )
         .default(() => []),
     })

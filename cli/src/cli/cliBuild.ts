@@ -1,6 +1,7 @@
 import chokidar from "chokidar";
 import { format } from "date-fns";
 import jetpack from "fs-jetpack";
+import { join } from "path";
 import { buildApplyTransformersByFilename } from "../api/buildApplyTransformersByFilename";
 import { buildByConfig } from "../api/buildByConfig";
 import { ConfigParser } from "../ConfigParser";
@@ -89,7 +90,10 @@ export async function cliBuild({
       } else {
         logInfo("Starting compilation in watch mode...");
         for (const fileConfig of config.files) {
-          const watcher = chokidar.watch(fileConfig.input);
+          const {
+            input: { path, match },
+          } = fileConfig;
+          const watcher = chokidar.watch(join(path, ...(match ? [match] : [])));
           const cleanupFilesMap = new Map<string, () => Promise<any>>();
           watcher.on(
             "all",

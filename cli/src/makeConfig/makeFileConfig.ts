@@ -1,5 +1,4 @@
-import escapeStringRegexp from "escape-string-regexp";
-import { join, normalize } from "path";
+import { join, normalize, relative } from "path";
 import { IConfigFile } from "../types/IConfigFile";
 import { IMakeFileConfigObjectOptions } from "../types/IMakeFileConfigObjectOptions";
 
@@ -8,13 +7,27 @@ const extractInputPathMatch = (input: IMakeFileConfigObjectOptions["input"]) =>
     ? ([input, undefined] as const)
     : ([input.path, input.match] as const);
 export class MakeFileConfig {
-  static makeFileConfig = (
+  static extractInputPaths = (
     currentPath: string,
     { input, output }: IMakeFileConfigObjectOptions,
-  ): IConfigFile | null => {
+  ) => {
     const [path, match] = extractInputPathMatch(input);
     return output
-      ? MakeFileConfig.buildFileConfig(output, join(currentPath, path), match)
+      ? [
+          join(currentPath, output),
+          join(currentPath, path),
+          ...(match ? [match] : []),
+        ]
+      : null;
+  };
+
+  static makeFileConfig = (
+    currentPath: string,
+    options: IMakeFileConfigObjectOptions,
+  ): IConfigFile | null => {
+    const extracted = MakeFileConfig.extractInputPaths(currentPath, options);
+    return extracted
+      ? MakeFileConfig.buildFileConfig(extracted[0], extracted[1], extracted[2])
       : null;
   };
 
@@ -24,15 +37,14 @@ export class MakeFileConfig {
     inputMatch?: string,
   ): IConfigFile => {
     return {
-      input: join(normalize(inputPath), ...(inputMatch ? [inputMatch] : [])),
+      input: {
+        path: normalize(inputPath),
+        ...(inputMatch ? { match: inputMatch } : {}),
+      },
       output: {
         path: outputPath,
         filename: inputMatch
-          ? ({ filePath }) =>
-              normalize(filePath).replace(
-                new RegExp(`^${escapeStringRegexp(normalize(inputPath))}`),
-                "",
-              )
+          ? ({ filePath }) => relative(inputPath, filePath)
           : ({ filePath }) => filePath,
       },
     };
