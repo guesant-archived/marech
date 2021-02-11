@@ -88,24 +88,28 @@ importers:
   packages/transformer-html-modules:
     dependencies:
       '@guesant/marech-abstract-transformer-modules': 'link:../abstract-transformer-modules'
+      '@types/nunjucks': 3.1.4
       css-select: 3.1.2
       dom-serializer: 1.2.0
       domhandler: 4.0.0
       domutils: 2.4.4
       htmlparser2: 6.0.0
       marech-core: 'link:../../core'
+      nunjucks: 3.2.2
     devDependencies:
       '@types/node': 14.14.25
       typescript: 4.1.3
     specifiers:
       '@guesant/marech-abstract-transformer-modules': 'link:../abstract-transformer-modules'
       '@types/node': ^14.14.25
+      '@types/nunjucks': ^3.1.4
       css-select: ^3.1.2
       dom-serializer: ^1.2.0
       domhandler: ^4.0.0
       domutils: ^2.4.4
       htmlparser2: ^6.0.0
       marech-core: 'link:../../core'
+      nunjucks: ^3.2.2
       typescript: ^4.1.3
   packages/transformer-prettier:
     dependencies:
@@ -190,6 +194,10 @@ packages:
   /@types/node/14.14.25:
     resolution:
       integrity: sha512-EPpXLOVqDvisVxtlbvzfyqSsFeQxltFbluZNRndIb8tr9KiBnYNLzrc1N3pyKUCww2RNrfHDViqDWWE1LCJQtQ==
+  /@types/nunjucks/3.1.4:
+    dev: false
+    resolution:
+      integrity: sha512-cR65PLlHKW/qxxj840dbNb3ICO+iAVQzaNKJ8TcKOVKFi+QcAkhw9SCY8VFAyU41SmJMs+2nrIN2JGhX+jYb7A==
   /@types/prettier/2.2.0:
     dev: false
     resolution:
@@ -204,6 +212,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-sYAF+CF9XZ5cvEBkI7RtrG9g2GtMBkviTnBxYYyq+8BWvO4QtXfwwR6a2LFwCi4evMKZfpv6U43ViYvv17Wz3Q==
+  /a-sync-waterfall/1.0.1:
+    dev: false
+    resolution:
+      integrity: sha512-RYTOHHdWipFUliRFMCS4X2Yn2X8M87V/OpSqWzKKOGhzqyUxzyVmhHDH9sAvG+ZuQf/TAOFsLCpMw09I1ufUnA==
   /anymatch/3.1.1:
     dependencies:
       normalize-path: 3.0.0
@@ -223,6 +235,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==
+  /asap/2.0.6:
+    dev: false
+    resolution:
+      integrity: sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY=
   /balanced-match/1.0.0:
     dev: false
     resolution:
@@ -291,6 +307,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+  /commander/5.1.0:
+    dev: false
+    engines:
+      node: '>= 6'
+    resolution:
+      integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
   /commander/7.0.0:
     dev: false
     engines:
@@ -595,6 +617,19 @@ packages:
     dev: false
     resolution:
       integrity: sha512-i4sc/Kj8htBrAiH1viZ0TgU8Y5XqCaV/FziYK6TBczxmeKm3AEFWqqF3195yKudrarqy7Zu80Ra5dobFjn9X/Q==
+  /nunjucks/3.2.2:
+    dependencies:
+      a-sync-waterfall: 1.0.1
+      asap: 2.0.6
+      commander: 5.1.0
+    dev: false
+    engines:
+      node: '>= 6.9.0'
+    hasBin: true
+    optionalDependencies:
+      chokidar: 3.5.1
+    resolution:
+      integrity: sha512-KUi85OoF2NMygwODAy28Lh9qHmq5hO3rBlbkYoC8v377h4l8Pt5qFjILl0LWpMbOrZ18CzfVVUvIHUIrtED3sA==
   /once/1.4.0:
     dependencies:
       wrappy: 1.0.2
