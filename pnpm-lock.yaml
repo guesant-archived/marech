@@ -9,6 +9,7 @@ importers:
       chokidar: 3.5.1
       commander: 7.0.0
       date-fns: 2.17.0
+      enquirer: 2.3.6
       fs-jetpack: 4.1.0
       globby: 11.0.2
       lodash.chunk: 4.2.0
@@ -31,6 +32,7 @@ importers:
       chokidar: ^3.5.1
       commander: ^7.0.0
       date-fns: ^2.17.0
+      enquirer: ^2.3.6
       fs-jetpack: ^4.1.0
       globby: ^11.0.2
       lodash.chunk: ^4.2.0
@@ -201,6 +203,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-RYTOHHdWipFUliRFMCS4X2Yn2X8M87V/OpSqWzKKOGhzqyUxzyVmhHDH9sAvG+ZuQf/TAOFsLCpMw09I1ufUnA==
+  /ansi-colors/4.1.1:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==
   /anymatch/3.1.1:
     dependencies:
       normalize-path: 3.0.0
@@ -376,6 +384,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-jBC0vOsECI4OMdD0GC9mGn7NXPLb+Qt6KW1YDQzeQYRUFKmNG8lh7mO5HiELfr+lLQE7loDVI4QcAxV80HS+RA==
+  /enquirer/2.3.6:
+    dependencies:
+      ansi-colors: 4.1.1
+    dev: false
+    engines:
+      node: '>=8.6'
+    resolution:
+      integrity: sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==
   /entities/2.2.0:
     dev: false
     resolution:

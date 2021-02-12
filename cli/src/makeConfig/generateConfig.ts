@@ -1,4 +1,3 @@
-import { IConfigRule } from "../types";
 import { IConfig } from "../types/IConfig";
 import { IGenerateConfigOptions } from "../types/IGenerateConfigOptions";
 import { generateRules } from "./generateRules";
