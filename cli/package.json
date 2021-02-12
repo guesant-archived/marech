@@ -4,6 +4,9 @@
   "main": "build/index.js",
   "repository": "https://github.com/guesant/marech.git",
   "homepage": "https://github.com/guesant/marech#readme",
+  "bin": {
+    "marech": "./bin/marech.js"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",

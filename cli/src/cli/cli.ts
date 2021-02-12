@@ -38,5 +38,3 @@ export async function main(args: string[]) {
 
   program.parse(args);
 }
-
-main(process.argv);
