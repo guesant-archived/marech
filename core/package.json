@@ -12,13 +12,6 @@
   },
   "author": "Gabriel Rodrigues",
   "license": "MIT",
-  "dependencies": {
-    "css-select": "^3.1.2",
-    "dom-serializer": "^1.2.0",
-    "domhandler": "^4.0.0",
-    "domutils": "^2.4.4",
-    "htmlparser2": "^6.0.0"
-  },
   "devDependencies": {
     "@types/node": "^14.14.25",
     "ts-node": "^9.1.1",
