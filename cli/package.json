@@ -16,9 +16,9 @@
   "author": "Gabriel Rodrigues",
   "license": "MIT",
   "dependencies": {
-    "@guesant/marech-transformer-html-minifier": "link:../packages/transformer-html-minifier",
-    "@guesant/marech-transformer-html-modules": "link:../packages/transformer-html-modules",
-    "@guesant/marech-transformer-prettier": "link:../packages/transformer-prettier",
+    "@guesant/marech-transformer-html-minifier": "file:../packages/transformer-html-minifier",
+    "@guesant/marech-transformer-html-modules": "file:../packages/transformer-html-modules",
+    "@guesant/marech-transformer-prettier": "file:../packages/transformer-prettier",
     "chokidar": "^3.5.1",
     "commander": "^7.0.0",
     "date-fns": "^2.17.0",
@@ -26,7 +26,7 @@
     "fs-jetpack": "^4.1.0",
     "globby": "^11.0.2",
     "lodash.chunk": "^4.2.0",
-    "marech-core": "link:../core",
+    "marech-core": "file:../core",
     "micromatch": "^4.0.2",
     "yup": "^0.32.8"
   },

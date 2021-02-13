@@ -11,7 +11,7 @@
   "author": "Gabriel Rodrigues",
   "license": "MIT",
   "dependencies": {
-    "@guesant/marech-abstract-transformer-modules": "link:../abstract-transformer-modules",
+    "@guesant/marech-abstract-transformer-modules": "file:../abstract-transformer-modules",
     "css-select": "^3.1.2",
     "dom-serializer": "^1.2.0",
     "domhandler": "^4.0.0",
